@@ -1,0 +1,12 @@
+name: a7-data-app-bohran
+title: a7-data-app-bohran
+username:
+account: bohran
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 289470
+bundleId: 1243312
+url: https://bohran.shinyapps.io/a7-data-app-bohran/
+when: 1519764603.45356
+asMultiple: FALSE
+asStatic: FALSE
