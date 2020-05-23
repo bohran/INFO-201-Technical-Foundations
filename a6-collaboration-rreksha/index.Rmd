@@ -1,0 +1,58 @@
+---
+title: "INFO 201 Survey Responses"
+author: "Anant Rajeev, Nicole Bohra, Reksha Rathnam"
+date: "2/12/2018"
+output: html_document
+---
+```{r, echo= FALSE, message=FALSE, warning = FALSE}
+
+source("HW6.R")
+
+```
+
+
+# Summary Statistics Description
+#### This section includes data about the mean programming experience, the number of people from Washington, the number of people who use Windows vs. the number of people who use Mac, the maximum number coffee of cups consumed by one person per day, the number of Seahawks superfans, the percentage of people who are interested in Info. 
+
+At the beginning of our INFO 201 this quarter, the class took a survey on topics relating to residence, pet preferences, and their technical experiences thus far. From this survey, we found some interesting data to report. The number of people in our class who reside in Washington state is `r from.washington` people. In our class, the average amount of programming experience is `r mean.program.exp` out of 5 (with 5 being an expert level user.) From this, we determined that about `r percent.info.interest`% of the class was interested in majoring in Informatics.The division between Mac and Windows users in the classroom was also pretty surprising to see. The number of Mac users is `r mac.count` and the number of Windows users is `r windows.count`. Almost an even split amongst the class! For some fun non-programming related survey questions, we found that `r seahawks.superfans` people were **superfans** of the Seattle Seahawks football team and the maximum amount of coffee consumed by one person was `r coffee.max` cups!
+
+# Response Statistics Description
+This table shows the number of people who rated each of their experiences. One being the least amount of experience and five being the most amount of experience. The table includes overall programming, command line, version control, markdown, R and web experiences. Most of the students before the class had the most experience in command line and had almost no expert knowledge.
+
+```{r, echo= FALSE, message=FALSE}
+
+source("HW6.R")
+kable(exp.data)
+```
+
+# First Data Visualization
+
+This data plot describes how experienced this group of students is in programming interfaces such as R, Command-Line Interface, and Web Programming based on how much overall programming experience a student has. This plot shows that with more programming experience, web programming experience for this particular group decreases, showing that as people become more entrenched in overall programming, web experience becomes less and less of a priority. Furthermore, as a student programs more generally, then they seem to have more experience with R and statistical programming. This shows that students become more interested in learning about how to summarize data in programming once they’ve gained more programming knowledge. This trend also stands true with command line interface. Overall, with more programming experience, there is a higher chance that this group of students will know how to use more branches of programming.
+
+```{r, echo=FALSE, message=FALSE, warning = FALSE}
+first.plot <- ggplot(data = info) +
+  geom_smooth(mapping = aes(x = programming_exp, y = cli_exp, color = "red")) +
+  geom_smooth(mapping = aes(x = programming_exp, y = r_exp, color = "black")) + 
+  geom_smooth(mapping = aes(x = programming_exp, y = web_exp, color = "blue")) + 
+  xlab("Programming Experience") +
+  ylab("Experience") +
+  ggtitle("Overall Programming Experience vs Specific Experience") +
+  scale_color_manual(labels = c("Web","R","Command Line"), values = c("red","black","blue"))
+print(first.plot)
+
+```
+
+# Second Visualization
+
+This data plot describes the relationship between the amount of coffee consumed by students either born in or out of Washington state, that either are or are not Seahawks fans. The data shows that the students who weren’t born in Washington typically aren’t Seahawks fans and the people who were born in Washington were Seahawks fans. The data supported that even though Seattle is famous for coffee, students who were born outside of Washington have the same amount of average coffee consumption as students who were born in Washington.
+
+
+```{r, echo= FALSE, message=FALSE, warning = FALSE}
+info <- filter(info, coffee_cups < 80000)
+second.plot <- ggplot(data = info) + 
+  geom_point(mapping = aes(x = seahawks_fan, y = coffee_cups, color = washington_born)) +
+  xlab("Seahawks Fan") +
+  ylab("Coffee Cups") +
+  ggtitle("Coffee Cups vs. Seahawks Fans vs. Born in Washington")
+print(second.plot)
+```
